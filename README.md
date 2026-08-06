@@ -20,11 +20,14 @@ A lean, model-agnostic design agent for Indonesian government digital products o
 
 ## Install (2 min)
 1. Clone or download this repo.
-2. Add the agent definition as a Hermes skill:
+2. Register the agent as a Hermes skill (symlink keeps it in sync with git):
    ```bash
-   hermes skill add /path/to/Design\ Agent/AGENT.md
+   ln -sfn "/path/to/Design Agent" ~/.hermes/skills/design-agent
+   ln -sfn "/path/to/Design Agent/skills/figma-read" ~/.hermes/skills/figma-read
+   ln -sfn "/path/to/Design Agent/skills/code-scaffold" ~/.hermes/skills/code-scaffold
+   ln -sfn "/path/to/Design Agent/skills/ship-to-vercel" ~/.hermes/skills/ship-to-vercel
    ```
-   (or copy it into `~/.hermes/skills/design-agent/SKILL.md` — see `hermes-agent` skill for the canonical layout)
+   (No copy — the installed skill IS the repo; `git pull` updates the agent.)
 3. Export credentials:
    ```bash
    export FIGMA_TOKEN=your_figma_token

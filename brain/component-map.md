@@ -2,24 +2,41 @@
 
 The bridge between design and code. When generating React from a Figma frame, resolve each IDDS component instance to its React equivalent below.
 
-## Verified React exports (`@idds/react`)
-| Figma component | React | Key props | Notes |
-|---|---|---|---|
-| Button | `<Button>` | `hierarchy` (`primary`/`secondary`/`tertiary`), `size` (`sm`/`md`/`lg`), `disabled` | Official docs example |
-| Text Input | `<TextField>` | `label`, `placeholder`, `error`, `disabled`, `type` | Official docs example |
-| Card Content | `<Card>` | `children`, `className` | Official docs example |
+## Verified React exports (`@idds/react` — enumerated 6 Aug 2026, 111 exports)
 
-> ⚠️ The package grows over time — **verify current exports before use**: in a scratch project run
-> `node -e "import('@idds/react').then(m => console.log(Object.keys(m).sort().join('\n')))"`.
-> Not every kit component has a 1:1 React export; some are CSS patterns (below).
+| Figma component | React | Notes |
+|---|---|---|
+| Button / Button Group | `<Button>`, `<ButtonGroup>` | `hierarchy` (`primary`/`secondary`/`tertiary`), `size` (`sm`/`md`/`lg`) |
+| Text Input / TextArea | `<TextField>`, `<TextArea>` | `label`, `placeholder`, `error`, `disabled`, `type` |
+| Card Content | `<Card>`, `<CardPlain>` | `children`, `className` |
+| Table | `<Table>`, `<TableProgressBar>` | real Table component exists — prefer it over hand-built tables |
+| Modal / Drawer / BottomSheet | `<Modal>`, `<Drawer>`, `<BottomSheet>` | |
+| Badge / Avatar / Chip | `<Badge>`, `<Avatar>`, `<Chip>` | |
+| Pagination / Stepper | `<Pagination>`, `<Stepper>` | |
+| Tab Menu | `<TabHorizontal>`, `<TabVertical>` | |
+| Accordion | `<Accordion>`, `<AccordionGroup>`, `<AccordionCard>` | `useAccordionGroup` hook |
+| Alert / Toast / Toggle / Tooltip | `<Alert>`, `<Toast>`, `<Toggle>`, `<Tooltip>` | Toast needs `ToastProvider` at root |
+| Checkbox / Radio | `<Checkbox>`, `<RadioInput>` | |
+| Date / Time / Month / Year Picker | `<DatePicker>`, `<TimePicker>`, `<MonthPicker>`, `<YearPicker>` | |
+| Dropdown | `<BasicDropdown>`, `<ActionDropdown>`, `<SelectDropdown>` | |
+| OTP | `<OneTimePassword>` | |
+| File Upload | `<FileUpload>`, `<SingleFileUpload>` | |
+| Input variants | `<InputSearch>`, `<PasswordInput>`, `<PhoneInput>`, `<FormField>` | |
+| Feedback / Loading | `<Alert>`, `<Skeleton>`, `<Spinner>`, `<ProgressBar>`, `<LinearProgressIndicator>`, `<CircleProgressBar>` | |
+| List | `<List>`, `<ListItem>`, `<ListItemButton>`, `<ListItemIcon>`, `<ListItemText>`, `<ListSubheader>` | |
+| Collapse / Divider | `<Collapse>`, `<Divider>` | |
+| Forms | `FormProvider`, `useForm` | |
+
+**Helpers & tokens:** `setBrandTheme`, `getAvailableBrands`, `isValidBrand`, `setThemeMode`/`getThemeMode`/`toggleThemeMode`/`getCurrentTheme`/`initializeTheme`/`resetTheme`/`setCustomTheme`, color token objects (`iddsColorTokens`, `panrbColorTokens`, `bgnColorTokens`, `bknColorTokens`, `lanColorTokens`, `inagovColorTokens`, `inakuColorTokens`, `inapasColorTokens`, `defaultColorTokens`), input sanitizers (`sanitizeInput`, `validateInput`, `onlyNumericValue`, `onlyDecimalNumber`, `onlyAlphanumeric`), file validation (`validateFile*`), `formattingThousand`, `useConfirmation`, `useToast`.
+
+> Re-verify before relying on a rare export: `node -e "import('@idds/react').then(m => console.log(Object.keys(m).sort().join('\n')))"` — the package grows over time.
 
 ## Design patterns without a React component (CSS / structure)
 | Pattern | Approach |
 |---|---|
-| Table | Native `<table>` + IDDS CSS (Table Cell styling). Never hand-build with divs. |
-| Layout shell (Sidebar, Navbar, Header) | Compose from components + Tailwind IDDS tokens. |
+| Layout shell (Sidebar, Navbar, Header) | Compose from components + Tailwind IDDS tokens (no dedicated shell export). |
 | Dashboard metrics | Card grid; metric = H5/Semibold + Caption S label. |
-| Empty state / FAQ / 404 / OTP | Compose from Button + TextField + icons + copy. |
+| Empty state / FAQ / 404 / OTP | Compose from Button + TextField + icons + copy (OTP has `<OneTimePassword>`). |
 
 ## Theme & tokens in React
 ```jsx
@@ -29,6 +46,14 @@ import { setBrandTheme, setThemeMode, toggleThemeMode } from '@idds/react'
 setBrandTheme('panrb')   // 'inagov' | 'panrb' | 'bkn' | 'lan' | 'bgn' | 'default'
 setThemeMode('light')    // 'light' | 'dark' — sets data-theme on <html>
 ```
+
+## Root providers (discovered from official starter, Feb 2026)
+Toast and Confirmation components need their providers at the root or they fail at runtime:
+```jsx
+import { ConfirmationProvider, ToastProvider } from '@idds/react'
+// wrap <App /> in <ConfirmationProvider><ToastProvider>…</ToastProvider></ConfirmationProvider>
+```
+The official starter (idds-react-starter.zip) also ships **React 19 + Vite 5 + Tailwind v4 + apexcharts** — mirror it for new projects.
 
 ## Tailwind token utilities (v4)
 ```css

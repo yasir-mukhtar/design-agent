@@ -73,7 +73,7 @@ When handed a brief with no existing brain:
 - No em dash, no machine cadence. Full guide: `brain/writing-guide.md`.
 
 ### Code rules
-- Scaffold with Vite + React + TS + Tailwind v4 + `@idds/react` (see `skills/code-scaffold`).
+- Scaffold with Vite + React + TS + Tailwind v4 + `@idds/react` — mirror the official starter (`skills/code-scaffold`; add the `tailwindcss()` vite plugin and root `ConfirmationProvider`/`ToastProvider`).
 - `import '@idds/react/index.css'` FIRST; call `setBrandTheme()` once at entry; Tailwind tokens via `@idds/styles/tailwind/css/idds.css` + brand css.
 - Map Figma components to React via `brain/component-map.md`.
 - Ship: git push to GitHub → Vercel auto-deploy (see `skills/ship-to-vercel`).
