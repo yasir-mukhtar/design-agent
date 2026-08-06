@@ -444,3 +444,21 @@ Schema provisioning and Row-Level Security setup for government data.
 3. **The official starter ships with a TS error** in `Articles.tsx` (`Chip.onSelect` handler typed `string` vs `string | string[]`) — fixed in test copy; flag on `npm run build` failure of fresh starter clones.
 4. `Table` IS a real `@idds/react` export (component-map previously said "native table only").
 5. `setBrandTheme` brand values confirmed: `'inagov' | 'panrb' | 'bkn' | 'lan' | 'bgn' | 'default'` (starter comment shows `'pan-rb'` — code uses `'panrb'`).
+
+---
+
+# Execution Log — Phase 3 part 1: figma-write (6 Aug 2026)
+
+## Key discovery (changes the architecture)
+The **official remote Figma MCP** (`https://mcp.figma.com/mcp`) now supports **write-to-canvas**: `use_figma` (create/edit any object), `create_new_file`, `search_design_system` (place real IDDS components), `get_libraries`, `generate_figma_design`. Free during beta, all seats/plans, OAuth (no PAT). Hermes catalog includes it one-click: `hermes mcp install figma`. This supersedes the earlier "REST cannot write" limitation — REST remains the headless/scripted fallback.
+
+## Delivered
+- `skills/figma-write/SKILL.md` — MCP write playbook: study-then-reuse → plan → create file → place components via search_design_system → bind tokens → screenshot-verify → report; craft-law checklist; common operations; pitfalls.
+- `brain/figma-guide.md` — restructured: MCP = primary path (setup, read/write tool tables, plans & quota), REST = headless fallback; REST write clearly marked draft-only.
+- `AGENT.md` + `SKILL.md` — MCP is the default Figma read+write path; REST is fallback.
+- Registered `~/.hermes/skills/figma-write` (symlink).
+
+## Remaining Phase 3
+- `skills/supabase-provision` — not started.
+- Live MCP install (`hermes mcp install figma` + OAuth) — needs the user's Figma authorization; pending.
+- NOTE: probing the MCP SDK surfaced a broken `pydantic_core` import in the Hermes venv (`ModuleNotFoundError: pydantic_core._pydantic_core`) — verify it does not block MCP discovery when installing the Figma server; reinstall pydantic if needed.

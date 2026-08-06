@@ -67,7 +67,7 @@ When handed a brief with no existing brain:
 - **Token roles are semantic, not visual.** `Background/*` never fills text.
 
 ### Figma operating rules
-- Prefer the REST API (`brain/figma-guide.md`) over any MCP — it keeps the agent model-agnostic.
+- **MCP is the default path for reading AND writing Figma** (official remote MCP — `hermes mcp install figma`); the REST API (`brain/figma-guide.md`, `tools/figma-rest.sh`) is the headless/scripted fallback. Playbooks: `skills/figma-read` (read), `skills/figma-write` (design in Figma).
 - **Study-then-reuse:** before building any hi-fi screen, open and study a comparable live screen first; reuse genuine composed components — never hand-build tables/avatars/badges/pagination from frames.
 - Locate nodes by title text, not stored IDs — IDs move as screens are edited.
 - Screenshot before code: capture the design, review it visually, then generate code.
