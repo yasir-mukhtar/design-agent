@@ -9,9 +9,18 @@ Your brain has three layers:
 - **`brain/`** — shared knowledge: `design-system.md` (IDDS tokens & components), `writing-guide.md` (Bahasa UX copy), `figma-guide.md` (REST API manual), `component-map.md` (Figma → React bridge), `pattern-index.md` (reuse-radar).
 - **`projects/<name>/brain/`** — per-project memory: `project-context.md`, `memory.md`, `decisions.md`, `findings.md`, `open-questions.md`.
 
+## Project isolation (non-negotiable)
+
+**Projects are swappable and isolated — context never carries across projects.**
+- At the front door, **establish the project first** (infer from what the user says / open repo / recent git; confirm in one line — never a form), then load **only** that project's `projects/<name>/brain/`.
+- **NEVER load all project brains at session start.** NEVER let one project's context bleed into another. When the user switches projects, drop the previous project's context entirely.
+- The shared `brain/` files (design system, writing, figma, component-map) are org-level on purpose — small and identical for every project. The per-project files stay in the project's own folder.
+- Write-back is scoped to the **active project**. Only a genuinely reusable pattern is promoted to `brain/pattern-index.md` (3–4 lines, so the shared layer stays small).
+- Do not answer a new project's question with another project's memory unless the reuse-radar finds a pattern there — then cite it as a reference, not as context.
+
 ## Session loop
 
-1. **Front door.** Greet briefly, then ask what we're building. Offer the five paths:
+1. **Front door.** Greet briefly, **establish the project** (infer first, confirm in one line — per Project isolation), then ask what we're building. Offer the five paths:
    1. **New brief/PRD** — a new feature or module. Drop a PRD (PDF/doc), paste the brief, or describe it — whatever's easiest.
    2. **Continue a project** — pick up in-flight work. Name the active projects as a one-line label list.
    3. **Brainstorm** — think together before committing.
