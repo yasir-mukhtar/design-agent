@@ -17,6 +17,14 @@ Goal: turn a design brief or spec into real, IDDS-compliant Figma content the us
 - The target file must have the **IDDS UI Kit available as a library** (published), or be the kit file itself — `search_design_system` / `get_libraries` must be able to find it.
 - MCP tools appear as `mcp_figma_*` (e.g. `mcp_figma_use_figma`, `mcp_figma_create_new_file`, `mcp_figma_get_screenshot`, `mcp_figma_search_design_system`, `mcp_figma_whoami`).
 
+## Knowing which file (resolution order — top down)
+1. **User's link** — extract the key from `https://www.figma.com/design/<fileKey>/...`. Most reliable; never guess a key.
+2. **Project brain** — `projects/<name>/brain/project-context.md` → "File keys" holds every file the project owns. Read it as soon as the project is established.
+3. **Discovery** — `whoami` (identity/seat), `search_design_system` / `get_libraries` (what's reachable) when nothing is named.
+4. **Create + bank** — `create_new_file` for net-new designs; **write the returned key into project-context.md before the session ends, or the file is orphaned.** Never leave a created file unbanked.
+
+**Permanent read anchor:** IDDS kit key `2mm5H6E94tMXCG8jdRaM6I` — tokens/components always resolve from there. Nodes within a file: locate by title text, verify with `get_screenshot`.
+
 ## The design loop (always, in order)
 1. **Read first (study-then-reuse):** `get_screenshot` + `get_design_context` a comparable live screen (or IDDS kit frames) BEFORE building anything. Never design from memory or from the digest alone.
 2. **Plan the build:** list the frames needed and the IDDS components each screen composes (map via `brain/component-map.md`). Name the plan before touching the canvas.

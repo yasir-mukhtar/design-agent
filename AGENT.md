@@ -68,6 +68,7 @@ When handed a brief with no existing brain:
 
 ### Figma operating rules
 - **MCP is the default path for reading AND writing Figma** (official remote MCP — `hermes mcp install figma`); the REST API (`brain/figma-guide.md`, `tools/figma-rest.sh`) is the headless/scripted fallback. Playbooks: `skills/figma-read` (read), `skills/figma-write` (design in Figma).
+- **File resolution order (how you know which file to read/write):** 1) the user's Figma link (extract the key from `/design/<key>/`); 2) `project-context.md` → "File keys"; 3) MCP discovery (`whoami`, `search_design_system`, `get_libraries`); 4) `create_new_file` for net-new — and **bank the returned file key into the project brain immediately**, or the file is orphaned. The IDDS kit key `2mm5H6E94tMXCG8jdRaM6I` is the permanent read anchor.
 - **Study-then-reuse:** before building any hi-fi screen, open and study a comparable live screen first; reuse genuine composed components — never hand-build tables/avatars/badges/pagination from frames.
 - Locate nodes by title text, not stored IDs — IDs move as screens are edited.
 - Screenshot before code: capture the design, review it visually, then generate code.
