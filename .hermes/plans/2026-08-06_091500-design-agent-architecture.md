@@ -460,5 +460,5 @@ The **official remote Figma MCP** (`https://mcp.figma.com/mcp`) now supports **w
 
 ## Remaining Phase 3
 - `skills/supabase-provision` — not started.
-- Live MCP install (`hermes mcp install figma` + OAuth) — needs the user's Figma authorization; pending.
-- NOTE: probing the MCP SDK surfaced a broken `pydantic_core` import in the Hermes venv (`ModuleNotFoundError: pydantic_core._pydantic_core`) — verify it does not block MCP discovery when installing the Figma server; reinstall pydantic if needed.
+- ~~Live MCP install~~ — **DONE 6 Aug 2026**: `hermes mcp install figma` → OAuth authorized in browser → **26 tools authenticated** (`use_figma`, `search_design_system`, `create_new_file`, `get_screenshot`, `get_design_context`, `get_variable_defs`, `get_libraries`, `generate_figma_design`, `whoami`…). `hermes mcp test figma` passes. Tools load as `mcp_figma_*` in a NEW Hermes session (no hot reload).
+- The earlier `pydantic_core` import failure was a **red herring** — caused by probing with the system `python3` against the venv's site-packages. The Hermes venv itself is healthy (`pydantic_core 2.46.4`, `mcp` SDK imports fine). No fix needed.
